@@ -1,23 +1,21 @@
-     yaml
-     name: 自动清空订阅
-     on:
-       schedule:
-         - cron: '0 0 1 * *'  # 每月1日0点运行（北京时间需+8小时）
-       workflow_dispatch:    # 允许手动触发
+name: 自动清空订阅
+on:
+  schedule:
+    - cron: '0 0 1 * *'  # 每月1日0点运行（北京时间需+8小时）
+  workflow_dispatch:    # 允许手动触发
 
-     jobs:
-       clear-file:
-         runs-on: ubuntu-latest
-         steps:
-           - name: 拉取代码
-             uses: actions/checkout@v2
+jobs:
+  clear-file:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 拉取代码
+        uses: actions/checkout@v2
 
-           - name: 清空文件
-             run: |
-               echo "订阅已过期，请联系管理员" > sub.txt
-               git config user.name "GitHub Actions"
-               git config user.email "actions@github.com"
-               git add sub.txt
-               git commit -m "自动清空订阅文件"
-               git push
-     ```
+      - name: 清空文件
+        run: |
+          echo "订阅已过期，请联系管理员" > sub.txt
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add sub.txt
+          git commit -m "自动清空订阅文件"
+          git push
