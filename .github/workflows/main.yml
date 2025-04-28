@@ -1,7 +1,7 @@
 name: 自动清空订阅
 on:
   schedule:
-    - cron: '38 15 28 4 *'  # 每月1日0点UTC时间（实际北京时间为8:00 AM）
+    - cron: '06 16 28 4 *'  # 每月1日0点UTC时间（实际北京时间为8:00 AM）
   workflow_dispatch:
 
 jobs:
