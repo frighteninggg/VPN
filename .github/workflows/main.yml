@@ -1,15 +1,17 @@
 name: 自动清空订阅
 on:
   schedule:
-    - cron: '0 0 1 * *'  # 每月1日0点运行（北京时间需+8小时）
-  workflow_dispatch:    # 允许手动触发
+    - cron: '0 0 1 * *'  # 每月1日0点UTC时间（实际北京时间为8:00 AM）
+  workflow_dispatch:
 
 jobs:
   clear-file:
     runs-on: ubuntu-latest
     steps:
       - name: 拉取代码
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.ACCESS_TOKEN }}  # 关键修复：使用自定义Token
 
       - name: 清空文件
         run: |
@@ -18,4 +20,4 @@ jobs:
           git config user.email "actions@github.com"
           git add sub.txt
           git commit -m "自动清空订阅文件"
-          git push
+          git push origin HEAD:main  # 明确推送到main分支
